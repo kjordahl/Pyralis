@@ -19,6 +19,11 @@ More information is at <http://mysite.verizon.net/kajordahl/firefly.html>.
 Kelsey Jordahl
 kjordahl@alum.mit.edu
 
+Time-stamp: <Thu Jan 14 20:49:49 EST 2010>
+
+NOTE: Updated pyralis.hex to be compiled for attiny45, which seems to
+run correctly on both ATtiny45 and ATtiny85 (the reverse is not true,
+as I just found out).  14-Jan-2010
 
 oneflymoving.c: A very simple program using timer1 for PWM but just
         _delay_ms() for timing flashes and intervals.  Only one male
