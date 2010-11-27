@@ -1,7 +1,0 @@
-Converting iPhone video:
-
-ffmpeg -i ~/Pictures/iPhoto\ Library/Originals/2009/Firefly\ jar/IMG_0087.MOV -f yuv4mpegpipe - | yuvfps -s 50:1 -r 50:1 | ffmpeg -f yuv4mpegpipe -i - -b 8000k -s 320x240 -y ffjar.avi
-
-can I rotate it as well?
-
-mencoder ~/Pictures/iPhoto\ Library/Originals/2009/Firefly\ jar/IMG_0087.MOV -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=800 -vf eq2=1.2:0.5:-0.25,rotate=1 -nosound -o temp.avi
