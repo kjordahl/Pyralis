@@ -3,7 +3,7 @@
  * Author: Kelsey Jordahl
  * Copyright: Kelsey Jordahl 2009
  * License: GPLv3
- * Time-stamp: <Sat Dec 26 08:32:49 EST 2009> 
+ * Time-stamp: <Thu Dec 16 21:45:10 EST 2010> 
 
 Simulate fireflies in a jar
 Uses the same hardware circuit as the Jar-of-Fireflies Instructable
@@ -274,7 +274,7 @@ void init(void) {
 
 void start_timers(void) {
   // timer1 will generate PWM on both IN1 and IN2
-  TCCR1 = (1 << COM1A1) | (1 << PWM1A) | (1 << WGM01) | (1 << WGM00);
+  TCCR1 = (1 << COM1A1) | (1 << PWM1A) | (1 << CS11) | (1 << CS10);
   GTCCR = (1 << PWM1B) | (1 << COM1B1);
   OCR1A = 0; OCR1B = 0;
   // timer0 will be set to generate an interupt every ~25.6 ms
