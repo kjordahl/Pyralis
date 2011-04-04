@@ -2,7 +2,7 @@
                                 ======
 
 Author: Kelsey Jordahl
-Date: 2011-04-03 21:25:15 EDT
+Date: 2011-04-03 21:31:48 EDT
 
 
 Table of Contents
@@ -16,7 +16,8 @@ Table of Contents
 
 1 Simulate fireflies in a jar 
 ------------------------------
-Uses the same hardware circuit as the [Jar-of-Fireflies Instructable]
+Uses the same hardware circuit as the [Jar-of-Fireflies Instructable],
+and posted as [New Jar of Fireflies].
 
 These programs are written for the AVR ATtiny85 microcontroller.  They
 should also run on the ATtiny45, and the two smaller ones should even
@@ -35,10 +36,11 @@ More information is at [http://kjordahl.net/firefly.html].
 [Kelsey Jordahl]
 ~kjordahl@alum.mit.edu~
 
-Time-stamp: <Sun Apr  3 21:25:15 EDT 2011>
+Time-stamp: <Sun Apr  3 21:31:48 EDT 2011>
 
 
 [Jar-of-Fireflies Instructable]: http://www.instructables.com/id/Jar-of-Fireflies/
+[New Jar of Fireflies]: http://www.instructables.com/id/New-Jar-of-Fireflies
 [Kelsey Jordahl]: http://kjordahl.net
 
 2 NOTE 
@@ -83,11 +85,14 @@ as I just found out).  14-Jan-2010
 
 Buck, J., [Synchronous rhythmic flashing of fireflies II]. /The Quarterly
      Review of Biology/, 63(3):265–289, 1988.
+
 Case, J., Flight studies on photic communication by the firefly
      /Photinus pyralis/, /Integrative and Comparative Biology/, 44(3), 250,
      [doi:10.1093/icb/44.3.250], 2004.
+
 Lewis, S. M. and C. Cratsley, [Flash signal evolution, mate choice, and predation in fireflies], /Ann. Rev. Ent./,
      [doi:10.1146/annurev.ento.53.103106.093346], 2008.
+
 Lloyd, J.. [Studies on the flash communication system in /Photinus/ fireflies],
      Museum of Zoology, University of Michigan, 1966.
 
