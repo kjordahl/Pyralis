@@ -1,44 +1,68 @@
-Simulate fireflies in a jar
-Uses the same hardware circuit as the Jar-of-Fireflies Instructable
-   http://www.instructables.com/id/EITCRQFB2JEWP86TYK/
+                                README
+                                ======
+
+Author: Kelsey Jordahl
+Date: 2011-04-03 21:25:15 EDT
+
+
+Table of Contents
+=================
+1 Simulate fireflies in a jar 
+2 NOTE 
+3 FILES 
+4 REFERENCES 
+5 LICENSE 
+
+
+1 Simulate fireflies in a jar 
+------------------------------
+Uses the same hardware circuit as the [Jar-of-Fireflies Instructable]
 
 These programs are written for the AVR ATtiny85 microcontroller.  They
 should also run on the ATtiny45, and the two smaller ones should even
 run on the ATtiny25 with only 2k of flash memory, but I have not tested
 it.  They are written to be compiled in avr-gcc.
 
-The full simulation program is pyralis.c.  The other two programs are
+The full simulation program is ~pyralis.c~.  The other two programs are
 simpler versions and can easily be extended to model other behaviors.
-The included Makefile will build and install pyralis.c.  It will need
+The included ~Makefile~ will build and install ~pyralis.c~.  It will need
 to be modified for chips other than the ATtiny85 and for programmers
 other than the USBtinyISP.  Pre-compiled .hex files are provided for
 all three programs that are ready to install.
 
-More information is at <http://mysite.verizon.net/kajordahl/firefly.html>.
+More information is at [http://kjordahl.net/firefly.html].
 
-Kelsey Jordahl
-kjordahl@alum.mit.edu
+[Kelsey Jordahl]
+~kjordahl@alum.mit.edu~
 
-Time-stamp: <Thu Jan 14 20:49:49 EST 2010>
+Time-stamp: <Sun Apr  3 21:25:15 EDT 2011>
 
-NOTE: Updated pyralis.hex to be compiled for attiny45, which seems to
+
+[Jar-of-Fireflies Instructable]: http://www.instructables.com/id/Jar-of-Fireflies/
+[Kelsey Jordahl]: http://kjordahl.net
+
+2 NOTE 
+-------
+Updated ~pyralis.hex~ to be compiled for attiny45, which seems to
 run correctly on both ATtiny45 and ATtiny85 (the reverse is not true,
 as I just found out).  14-Jan-2010
 
-oneflymoving.c: A very simple program using timer1 for PWM but just
-        _delay_ms() for timing flashes and intervals.  Only one male
+3 FILES 
+--------
+~oneflymoving.c~: A very simple program using timer1 for PWM but just
+        ~_delay_ms()~ for timing flashes and intervals.  Only one male
         at a time, moving sequentially from one LED to the next.  No
         randomness, sequence repeats every 6 flashes.
-	(uses only 338 bytes of flash memory)
+        (uses only 338 bytes of flash memory)
 
-pair.c: The simplest possible program using internal timers for both
+~pair.c~: The simplest possible program using internal timers for both
         PWM and generating interrupts.  Simulates a pair of fireflies,
         the male is always flashing every 6 s, from a random location
         each flash. The female will [pseudo-]randomly appear and
         disappear, responding 2 s after the male's flash.
         (uses 1344 bytes of flash memory)
 
-pyralis.c: The full simulation program.  Starts with one male flashing
+~pyralis.c~: The full simulation program.  Starts with one male flashing
         with a period of 5.9 ± 0.6 s.  Additional males will arrive
         randomly at different times and periods, and will fall into
         sync with existing males.  Females may respond if all males
@@ -51,28 +75,38 @@ pyralis.c: The full simulation program.  Starts with one male flashing
         likelihood of new males or females appearing each cycle is
         reset as well, changing the character of the interactions each
         time around.  Random number generator seed is stored to use a
-	different one each time.
-	(currently uses 2488 bytes of flash memory)
+        different one each time.
+        (currently uses 2488 bytes of flash memory)
 
-References
+4 REFERENCES 
+-------------
 
-Buck, J., Synchronous rhythmic flashing of fireflies. II. The Quarterly
-     Review of Biology, 63(3):265–289, 1988.
+Buck, J., [Synchronous rhythmic flashing of fireflies II]. /The Quarterly
+     Review of Biology/, 63(3):265–289, 1988.
 Case, J., Flight studies on photic communication by the firefly
-     Photinus pyralis, Integrative and Comparative Biology, 44(3), 250,
-     doi:10.1093/icb/44.3.250, 2004.
-Lewis, S. M. and C. Cratsley, Flash signal evolution, mate choice, and
-     predation in fireflies, Ann. Rev. Ent.,
-     doi:10.1146/annurev.ento.53.103106.093346, 2008.
-Lloyd, J.. Studies on the flash communication system in Photinus fireflies,
+     /Photinus pyralis/, /Integrative and Comparative Biology/, 44(3), 250,
+     [doi:10.1093/icb/44.3.250], 2004.
+Lewis, S. M. and C. Cratsley, [Flash signal evolution, mate choice, and predation in fireflies], /Ann. Rev. Ent./,
+     [doi:10.1146/annurev.ento.53.103106.093346], 2008.
+Lloyd, J.. [Studies on the flash communication system in /Photinus/ fireflies],
      Museum of Zoology, University of Michigan, 1966.
+
+
+     [Synchronous rhythmic flashing of fireflies II]: http://www.jstor.org/pss/2830425
+     [doi:10.1093/icb/44.3.250]: http://dx.doi.org/10.1093/icb/44.3.250
+     [Flash signal evolution, mate choice, and predation in fireflies]: http://ase.tufts.edu/biology/labs/lewis/publications.html
+     [doi:10.1146/annurev.ento.53.103106.093346]: http://dx.doi.org/10.1146/annurev.ento.53.103106.093346
+     [Studies on the flash communication system in /Photinus/ fireflies]: http://deepblue.lib.umich.edu/handle/2027.42/56374
+
+5 LICENSE 
+----------
 
 These programs are free software: you can redistribute them and/or
 modify them under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.  A copy of the GPL
 version 3 license can be found in the file COPYING or at
-<http://www.gnu.org/licenses/>.
+[http://www.gnu.org/licenses].
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
