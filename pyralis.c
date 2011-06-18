@@ -1,9 +1,9 @@
 /* Name: pyralis.c
- * Version: 1.0
+ * Version: 1.1
  * Author: Kelsey Jordahl
- * Copyright: Kelsey Jordahl 2009
+ * Copyright: Kelsey Jordahl 2009-2011
  * License: GPLv3
- * Time-stamp: <Thu Dec 16 21:45:10 EST 2010> 
+ * Time-stamp: <Sat Jun 18 20:01:14 EDT 2011> 
 
 Simulate fireflies in a jar
 Uses the same hardware circuit as the Jar-of-Fireflies Instructable
@@ -50,6 +50,7 @@ Lloyd, J.. Studies on the flash communication system in Photinus fireflies,
 #define MINDELTA 10
 #define WINDOW 136		/* should be 136 for 3.5 s */
 #define PULSELEN 20		/* length of pulse */
+#define SLEEPAFTER 6  /* shut down after this many full cycles (20-25 min ea) */
 #define IN1 (1 << PB1)		/* Pin  1 */
 #define IN2 (1 << PB4)		/* Pin  4 */
 #define OUT1 (1 << PB3)		/* Pin  3 */
@@ -86,6 +87,7 @@ volatile unsigned char fpulse[20] = { /* female signal is dimmer by 1/10 */
  
 volatile unsigned char count;	/* count ticks within a cycle */
 volatile unsigned char cycles;	/* count full periods */
+volatile unsigned char bigcount=0; /* count reset cycles ~  */
 volatile unsigned char fcount;
 volatile unsigned char mcount;
 volatile unsigned char ncount;
@@ -163,6 +165,7 @@ ISR(TIM0_COMPA_vect) {
     // see if we're done with this cycle
     if (count==mcount) {
       if (--cycles==0) {
+	bigcount++;
 	init();			/* reset all */
 	nmales=0;
       } else {
@@ -250,7 +253,12 @@ int main(void)
   start_timers();
   sei();
 
-  for (;;) {	     /* do nothing; everthing happens in interrupts */
+  for (;;) {	     /* do nothing; everything happens in interrupts */
+    if (bigcount>=SLEEPAFTER) { // go into low power mode and stay there
+      cli();
+      PORTB = ALL_OFF;
+      set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    }
     sleep_mode();
   }
 
@@ -258,7 +266,7 @@ int main(void)
 }
 
 void init(void) {
-  cycles=255 - (rand() % 205);	/* number of cycles to run */
+  cycles=255 - (rand() % 55);	/* number of cycles to run */
   //    cycles=80;			/* reset sooner for testing */
   nchance= (rand() % 16) + 4;	/* set odds of new male */
   fchance= (rand() % 12) + 4;	/* set odds of new female */
