@@ -3,7 +3,7 @@
  * Author: Kelsey Jordahl
  * Copyright: Kelsey Jordahl 2009-2011
  * License: GPLv3
- * Time-stamp: <Sat Jun 18 20:01:14 EDT 2011> 
+ * Time-stamp: <Tue Jul 26 18:48:15 EDT 2011> 
 
 Simulate fireflies in a jar
 Uses the same hardware circuit as the Jar-of-Fireflies Instructable
@@ -360,7 +360,7 @@ void getmask() {
       m1=1; m2=1;
       if (newmale) {
 	newmask=malemask;	/* actually light 2 new ones */
-	n1=~m1;
+	n1=(temp % 2);
       }
       break;
     case 5:			/* can't light 5; let's go to 6 */

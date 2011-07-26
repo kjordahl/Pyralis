@@ -2,7 +2,7 @@
                                 ======
 
 Author: Kelsey Jordahl
-Date: 2011-07-25 23:17:14 EDT
+Date: 2011-07-27 23:51:06 EDT
 
 
 Table of Contents
@@ -32,14 +32,15 @@ other than the USBtinyISP.  Pre-compiled .hex files are provided for
 all three programs that are ready to install.
 
 The subdirectory ~t84~ contains a port of the firmware to the ATtiny84,
-an AVR with more output pins than the ATtiny45/85.
+an AVR with more output pins than the ATtiny45/85.  The simulation
+program there can simulate 12 fireflies.
 
 More information is at [http://kjordahl.net/firefly.html].
 
 [Kelsey Jordahl]
 ~kjordahl@alum.mit.edu~
 
-Time-stamp: <Mon Jul 25 23:17:14 EDT 2011>
+Time-stamp: <Wed Jul 27 23:51:06 EDT 2011>
 
 
 [Jar-of-Fireflies Instructable]: http://www.instructables.com/id/Jar-of-Fireflies/
@@ -54,20 +55,20 @@ as I just found out).  14-Jan-2010
 
 3 FILES 
 --------
-~oneflymoving.c~: A very simple program using timer1 for PWM but just
+~t45/oneflymoving.c~: A very simple program using timer1 for PWM but just
         ~_delay_ms()~ for timing flashes and intervals.  Only one male
         at a time, moving sequentially from one LED to the next.  No
         randomness, sequence repeats every 6 flashes.
         (uses only 338 bytes of flash memory)
 
-~pair.c~: The simplest possible program using internal timers for both
+~t45/pair.c~: The simplest possible program using internal timers for both
         PWM and generating interrupts.  Simulates a pair of fireflies,
         the male is always flashing every 6 s, from a random location
         each flash. The female will [pseudo-]randomly appear and
         disappear, responding 2 s after the male's flash.
         (uses 1344 bytes of flash memory)
 
-~pyralis.c~: The full simulation program.  Starts with one male flashing
+~t45/pyralis.c~: The full simulation program.  Starts with one male flashing
         with a period of 5.9 ± 0.6 s.  Additional males will arrive
         randomly at different times and periods, and will fall into
         sync with existing males.  Females may respond if all males
@@ -83,7 +84,18 @@ as I just found out).  14-Jan-2010
         different one each time.
         (currently uses 2488 bytes of flash memory)
 
-~t84/pyralis84.c~: Port to ATtiny84
+~t84/softpwm.c~: A trial program to use software PWM to drive 8
+     LEDs independently.  I didn't find it to be fast enough to run a
+     firefly simulations.  Based on Atmel Application Note [AVR136].
+
+~t84/simple.c~: Trivial blinky program for testing ATtiny84.
+
+~t84/pyralis84.c~: Port of ~pyralis.c~ to ATtiny84.  Uses 12 LEDs
+     in two sets of six.  Also uses a button to switch on and off in
+     software.
+
+
+     [AVR136]: http://www.atmel.com/dyn/resources/prod_documents/doc8020.pdf
 
 4 REFERENCES 
 -------------
