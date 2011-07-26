@@ -2,7 +2,7 @@
                                 ======
 
 Author: Kelsey Jordahl
-Date: 2011-04-03 21:31:48 EDT
+Date: 2011-07-25 23:17:14 EDT
 
 
 Table of Contents
@@ -20,9 +20,9 @@ Uses the same hardware circuit as the [Jar-of-Fireflies Instructable],
 and posted as [New Jar of Fireflies].
 
 These programs are written for the AVR ATtiny85 microcontroller.  They
-should also run on the ATtiny45, and the two smaller ones should even
-run on the ATtiny25 with only 2k of flash memory, but I have not tested
-it.  They are written to be compiled in avr-gcc.
+also run on the ATtiny45, and the two smaller ones should even run on
+the ATtiny25 with only 2k of flash memory, but I have not tested it.
+They are written to be compiled in avr-gcc.
 
 The full simulation program is ~pyralis.c~.  The other two programs are
 simpler versions and can easily be extended to model other behaviors.
@@ -31,12 +31,15 @@ to be modified for chips other than the ATtiny85 and for programmers
 other than the USBtinyISP.  Pre-compiled .hex files are provided for
 all three programs that are ready to install.
 
+The subdirectory ~t84~ contains a port of the firmware to the ATtiny84,
+an AVR with more output pins than the ATtiny45/85.
+
 More information is at [http://kjordahl.net/firefly.html].
 
 [Kelsey Jordahl]
 ~kjordahl@alum.mit.edu~
 
-Time-stamp: <Sun Apr  3 21:31:48 EDT 2011>
+Time-stamp: <Mon Jul 25 23:17:14 EDT 2011>
 
 
 [Jar-of-Fireflies Instructable]: http://www.instructables.com/id/Jar-of-Fireflies/
@@ -79,6 +82,8 @@ as I just found out).  14-Jan-2010
         time around.  Random number generator seed is stored to use a
         different one each time.
         (currently uses 2488 bytes of flash memory)
+
+~t84/pyralis84.c~: Port to ATtiny84
 
 4 REFERENCES 
 -------------
