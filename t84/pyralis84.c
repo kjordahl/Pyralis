@@ -3,7 +3,7 @@
  * Author: Kelsey Jordahl
  * Copyright: Kelsey Jordahl 2009-2011
  * License: GPLv3
- * Time-stamp: <Wed Jul 27 23:26:02 EDT 2011> 
+ * Time-stamp: <Thu Jul 28 18:27:39 EDT 2011> 
 
 Simulate fireflies in a jar
 Based the Jar-of-Fireflies Instructable
@@ -52,7 +52,7 @@ Lloyd, J.. Studies on the flash communication system in Photinus fireflies,
 #define WINDOW 136		/* should be 136 for 3.5 s */
 #define PULSELEN 20		/* length of pulse */
 #define SLEEPAFTER 6  /* shut down after this many full cycles (20-25 min ea) */
-#define SEED_ADDR 0x06		/* EEPROM address to store random seed */
+#define SEED_ADDR (uint16_t*)0x06 /* EEPROM address to store random seed */
 
 // pins for ATtiny84
 //timer0 PWM (not currently used)
@@ -136,11 +136,12 @@ ISR(EXT_INT0_vect) {		/* this is INT0_vect on most AVRs */
     PORTA = OPINS;		/* all cathodes high, anodes low */
     OCR1A = 0; OCR1B = 0;
     state = ~state;		/* toggle on/off state */
-    if (state) {			/* reset */
+    if (state) {			/* turn on and reset */
       init();
+      bigcount=0;
       nmales=1;
       set_sleep_mode(SLEEP_MODE_IDLE); /* enable timer interrupts */
-    } else {
+    } else {			       /* turn off */
       count=0;
       set_sleep_mode(SLEEP_MODE_PWR_DOWN); /* don't wake for other interrupts */
     }
@@ -190,7 +191,13 @@ ISR(TIM0_COMPA_vect) {
     // see if we're done with this cycle
     if (count==mcount) {
       if (--cycles==0) {
-	bigcount++;
+	if (bigcount++>=SLEEPAFTER) {	/* turn off after certain amount of time */
+	  state=0;
+	  count=0;
+	  PORTA = OPINS;		/* all cathodes high, anodes low */
+	  OCR1A = 0; OCR1B = 0;
+	  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+	}
 	init();			/* reset all */
 	nmales=0;
       } else {
@@ -263,7 +270,7 @@ int main(void)
   srand(++seed);  		/* increment and use new value as seed */
   eeprom_write_word(SEED_ADDR,seed);	/* store for next time */
 
-  state=1;
+  state=1;			/* set state to on */
   init();
 
   nmales=1;
@@ -275,16 +282,6 @@ int main(void)
   sei();
 
   for (;;) {	     /* do nothing; everything happens in interrupts */
-    if (bigcount>=SLEEPAFTER) {	/* turn off after certain amount of time */
-      state=0;
-      PORTA = 0x00;
-      set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-    }
-    /* if (~state) { // go into low power mode and stay there */
-    /*   //      cli();  //bad idea */
-    /*   PORTA = 0x00; */
-    /*   set_sleep_mode(SLEEP_MODE_PWR_DOWN); */
-    /* } */
     sleep_mode();
   }
 
@@ -485,8 +482,8 @@ void getmask() {
 	}
       m1=1; m2=1;
       if (newmale) {
-	newmask=malemask;	/* actually light 2 new ones */
-	n1=(temp % 2);
+	newmask= outpin[(temp % NOUT)];
+	n1=((temp << 2) % 2);
       }
       break;
     case 9:
@@ -497,8 +494,8 @@ void getmask() {
       malemask= OPINS & ~outpin[mpin];
       m1=1; m2=1;
       if (newmale) {
-	newmask=malemask;	/* actually light 2 new ones */
-	n1=(temp % 2);
+	newmask= outpin[(temp % NOUT)];
+	n1=((temp << 2) % 2);
       }
       break;
     case 11:
